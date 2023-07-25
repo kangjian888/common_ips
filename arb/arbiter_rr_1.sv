@@ -14,6 +14,7 @@ wire  [REQ_NUM-1:0] base_nxt;//next base value, right circule shift 1 bit with c
 wire [REQ_NUM-1:0] gnt_cur;
 reg [REQ_NUM-1:0] base_cur;
 
+//priority update logic
 assign base_nxt = {gnt_cur[0],gnt_cur[REQ_NUM-1:1]};
 always_ff @(posedge clk or negedge rst_n ) begin : base_update_proc
     if (~rst_n) begin
@@ -24,6 +25,7 @@ always_ff @(posedge clk or negedge rst_n ) begin : base_update_proc
     end
 end
 
+//fix priority logic
 arbiter_fix_1 #(
     .REQ_NUM(REQ_NUM)
 )
